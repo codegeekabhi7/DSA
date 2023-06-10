@@ -1,0 +1,19 @@
+char array - 2d
+char arr[3][4]={
+  {'a','b','c'},
+  {'d','e','f'},
+  {'g','h','i'}
+  };
+  cout<<arr[0][0];//a b c d e f g ...... till we get null.
+  to tackle this problem we use 2 methords
+  in first one we use 
+  {
+  {'a','b','c','\0'},
+  {'d','e','f','\0'},
+  {'g','h','i','\0'}
+  }
+  {
+  "abcd",
+  "efgh",
+  "hijk"
+  }
