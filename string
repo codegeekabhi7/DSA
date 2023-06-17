@@ -1,0 +1,52 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+
+int main(){
+
+int,char,float ,double -- primitive
+string - char array 
+datatype nameofvariable 
+string s = "hello" ;
+string s ("hello");
+
+//cin>>s;
+getline (cin,s);
+//getline (cin ,string name )
+;
+
+
+cout<<s<<endl;
+
+string s1 = "apple";
+string s2 = "apdrtuu";
+
+
+ +operator between strings means concatenation 
+ substring = continous part of a substring 
+ subsequence  = continous or discontinous part of a substring 
+ stringname.substr(index, no. of characters);
+ 
+ string s1= "elephant";
+ 
+ 
+ s1.substr(3);
+ cout<< s1.substr(2,5);<<endl; // pphan
+
+cout<< s1.substr(3) // phant 
+
+stringname.length(); // length of string 
+
+
+stringname.push_back(char);
+
+string s1 = "hel";
+s1.push_back ("l");
+cout<<s1;
+//hell
+
+ 
+ 
+return 0;
+}
