@@ -1,0 +1,60 @@
+#include <iostream>
+using namespace std;
+
+
+
+
+void spiralprint(int arr[4][5], int tr , int tc){
+
+    int sr = 0;
+    int sc= 0;
+    int ec = tc - 1;
+    int er = tr - 1;
+while (sc<=ec and sr<=er){
+  // for first row
+    for (int i = sc; i <=ec;i++){
+        cout<<arr [sr][i]<<" ";
+
+    }
+    sr++;
+
+    //for last column 
+
+    for (int j = sr ; j<= er ; j++){
+        cout<<arr [j][ec]<<" ";
+
+         
+    
+    }
+     ec--;
+
+
+if (sr<=er)
+{
+for (int l = ec; l>= sc; l--){
+        cout<<arr[er][l]<< " ";
+
+     }
+}
+     
+    er--;
+   
+   if (sc<=ec){
+    for (int k=er ; k>=sr ; k--){
+        cout <<arr [k][sc];
+
+    }
+
+   }    
+   sc++;
+}
+
+}
+
+
+int main (){
+
+int arr [][4] = { };
+
+
+}
