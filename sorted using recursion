@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+bool isarraysorted1 (int arr[] , int n){
+    
+    if (i==n){
+        return true;
+        
+    }
+    
+    return isarraysorted1 (arr+1 , n-1 ) and arr [i+1] >= arr [i];
+    
+}
+bool isarraysorted2 (int arr[] , int n){
+    
+    if (n==1){
+        return true;
+        
+    }
+    
+     return arr[n-2]<=arr[n-1] and isarraysorted2 (arr,n-1);
+}
+
+
+
+int main() {
+    int arr[] = {4,6,7,8};
+    
+    int n -= sizeof(arr)/ size of(int);
+    isarraysorted1 (arr,n);
+    
+    
+    
+    return 0;
+}
