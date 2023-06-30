@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int findLength(vector<int>& nums1, vector<int>& nums2) {
+        if (nums1.size() > nums2.size()) {
+            nums1.swap(nums2);
+        }
+        string s(nums1.begin(), nums1.end());
+        string t(nums2.begin(), nums2.end());
+
+        auto isValid = [&](size_t current_size) {
+            unordered_set<string_view> substrings;
+            for (size_t i = 0; i <= s.size() - current_size; ++i) {
+                substrings.emplace(s.data() + i, current_size);
+            }
+            for (size_t i = 0; i <= t.size() - current_size; ++i) {
+                string_view view(t.data() + i, current_size);
+                if (substrings.count(view)) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        size_t left = 0;
+        size_t right = min(s.size(), t.size()) + 1;
+        while (right - left > 1) {
+            size_t mid = (left + right) / 2;
+            if (isValid(mid)) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
+};
