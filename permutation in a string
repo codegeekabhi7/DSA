@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+int c = 0 ;
+
+perm( char inp[], int i){
+    
+    // base case
+    if (inp [i] = '\0'){
+        c++;
+        cout<<inp<<endl;
+        return ;
+        
+    } 
+    
+    
+    
+    // recursive case 
+    for (int j = 1 ; inp [j]!= '\0'; j++){
+        
+        swap (inp[i],inp[j]);
+        perm (inp,i++);
+        swap (inp[i],inp [j]);//BACKTRACKING 
+        
+    }
+}
+
+int main (){
+    char inp [1000];
+    
+    perm (inp , 0);
+    
+    
+}
