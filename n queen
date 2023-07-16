@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+
+int board [100][100] = {0};
+
+bool queencheck(int i,int j, int n){
+    
+    //vertical check 
+    for (int k = i-1 ; k>=0;k--){
+        if (board [])
+        
+        
+        // right diagnal check 
+        
+        
+        
+        // left diagonal check 
+    }
+}
+
+bool nqueen(int n , int i){
+    
+    //b case
+    if (i==n){
+        for (int l=0;l<n;l++){
+            for (int m = 0 ; m<n ; m++){
+                
+                cout<< board [l][m]<<" ";
+                
+            }
+            cout<<endl;
+            
+        }
+        cout<< endl;
+    }
+    
+    
+    //recursive case 
+    
+    int j = 0 ; 
+    if (queencheck ( board , i , j ,n ,)){
+        board [i][j] = 1 ;
+        
+        if (nqueen ( n , i+1 )){
+            return true;
+            
+        }
+        board [i][j]=0; // backtracking 
+        
+        
+    }
+}
+
+
+int main (){
+    
+    int n ;
+    cin>>n;
+    nqueen (n,0);
+    
+    return 0;
+    
+}
