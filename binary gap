@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int binaryGap(int n) {
+        int ans = 0, count = 1;
+        
+        while(n > 0 ){
+            // first n
+           if(n&1){
+               cout << n << " break" << endl;
+              n  =n >> 1;
+               break;
+
+           }
+           n = n >> 1;
+        }
+
+        while(n > 0 ){
+            if(n&1){
+                // cout << n << " 2 one "<<  endl;
+                ans = max(count , ans);
+                count =1;
+            }
+            else
+                count++;
+            // n/=2;
+           n =  n >> 1;
+        }
+        return ans;
+    }
+};
