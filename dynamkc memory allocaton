@@ -1,0 +1,26 @@
+#include <iostream>
+  using namesoace std;
+
+int main () {
+
+  int *ptr = new int;
+  *ptr = 90 ;
+  cout<< *ptr<>endl;
+
+delete ptr ; 
+  ptr = NULL;
+  
+
+  // 1d array '=
+  int *arr = new int [100] ; 
+  for (int i = 0 ; i < 5 ; ++i)
+  {
+    cin >>arr[i] ;
+  }
+
+  for ( int i = 0 ; i< 5 ; i++){
+    cout<< arr[i];
+  }
+
+
+ 
