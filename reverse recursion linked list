@@ -1,0 +1,18 @@
+node* reverseRecursive(node* current, node* prev) {
+    
+    if (current == NULL) {
+        return prev;
+    }
+
+    node* new_head = reverseRecursive(current->next, current);
+
+    current->next = prev;
+
+    return new_head;
+    
+    //or
+    
+    // node* new_head = current->next;
+    // current->next = prev;
+    // reverseRecursive(current,prev);
+}
