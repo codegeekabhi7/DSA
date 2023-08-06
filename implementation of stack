@@ -1,0 +1,80 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+class node {
+public:
+    int data;
+    node* next;
+    node(int d) {
+        data = d;
+        next = NULL;
+    }
+};
+
+class stack {
+    node* head;
+    int l;
+
+public:
+    stack() {
+        head = NULL;
+        l = 0;
+    }
+
+    // push
+    void push(int d) {
+        // insert at head
+        node* newNode = new node(d);
+        newNode->next = head;
+        head = newNode;
+        l++;
+    }
+
+    // pop
+    void pop() {
+        // delete at head
+        if (head != NULL) {
+            node* temp = head;
+            head = head->next;
+            delete temp;
+            l--;
+        }
+    }
+
+    // top
+    int top() {
+        // head->data
+        if (head != NULL) {
+            return head->data;
+        }
+        return -1; // return -1 if stack is empty
+    }
+
+    // empty
+    bool empty() {
+        return l == 0;
+    }
+
+    // size
+    int size() {
+        return l;
+    }
+};
+
+int main() {
+    stack s;
+    s.push(7);
+    s.push(70);
+    s.push(17);
+    s.push(3);
+    s.push(6);
+    s.push(3);
+
+    while (!s.empty()) {
+        cout << s.top() << " ";
+        s.pop();
+    }
+
+    return 0;
+}
