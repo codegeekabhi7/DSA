@@ -1,0 +1,17 @@
+//kth node from end
+node* kthnode(node* head,int k){
+    
+    node* x = head;
+    node* y = head;
+    for(int jump = 1;jump = k-1;jump++){
+        y=y->next;
+    }
+    
+    while(y->next!=NULL){
+    x=x->next;
+    y=y->next;
+    }
+    
+    
+    return x;
+}
