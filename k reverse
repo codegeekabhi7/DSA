@@ -1,0 +1,33 @@
+node* reverse(node* head) {
+    return reverseRecursive(head, NULL);
+}
+
+
+// head-->2 5 4-->null   x--> 6 1 7 9 12 41
+//ad-->newhe4 5 2-->7 1 6 41 12 9
+node* kreverse(node*head,int k){
+	if(head==NULL){
+		return NULL;
+	}
+
+
+	node*temp=head;
+	for (int jump = 1; jump <=k-1;jump++)
+	{
+		temp=temp->next;
+	}
+	node*x=temp->next;//6 ka adrees 
+	temp->next=NULL;
+	node*newhead=reverse(head);
+	node*p=kreverse(x,k);
+	node*i=newhead;
+	while(i->next!=NULL){
+		i=i->next;
+	}
+
+	// i hoga 2 k address p
+	i->next=p;
+
+	return newhead;
+
+}
