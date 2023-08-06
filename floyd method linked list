@@ -1,0 +1,26 @@
+void removecylce(node* head){
+    //floyds methord
+    //iscycle present
+    bool kyacyclemilla = false;
+    node* slow = head;
+    node* fast = head;
+    while(fast!= NULL and fast->next != NULL){
+    slow = slow->next;
+    fast = fast->next->next;
+    if(slow == fast){
+        kyacyclemilla = true;
+        break;
+    }
+}
+    if(kyacyclemilla == true){
+        slow = head;
+        slow= slow->next;
+        fasr= fast->next;
+        while(slow->next != fast->next){
+            slow = slow->next;
+            fasr= fast->next;
+        }
+        fast->next = NULL;
+    }
+
+}
