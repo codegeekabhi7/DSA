@@ -1,0 +1,106 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string ltrim(const string &);
+string rtrim(const string &);
+
+/*
+ * Complete the 'mostBalancedPartition' function below.
+ *
+ * The function is expected to return an INTEGER.
+ * The function accepts following parameters:
+ *  1. INTEGER_ARRAY parent
+ *  2. INTEGER_ARRAY files_size
+ */
+
+int mostBalancedPartition(vector<int> parent, vector<int> files_size) {
+    int n = parent.size();
+    vector<vector<int>> children(n);
+
+    for (int i = 1; i < n; i++) {
+        children[parent[i]].push_back(i);
+    }
+
+    vector<int> size_sums(n, 0);
+
+    function<int(int)> size_sums_rec = [&](int i) -> int {
+        size_sums[i] = files_size[i];
+        for (int c : children[i]) {
+            size_sums[i] += size_sums_rec(c);
+        }
+        return size_sums[i];
+    };
+
+    size_sums_rec(0);
+
+    int totalSize = size_sums[0];
+    int ans = INT_MAX;
+
+    for (int i = 1; i < n; i++) {
+        ans = min(ans, abs(totalSize - 2 * size_sums[i]));
+    }
+
+    return ans;
+}
+
+int main() {
+    string parent_count_temp;
+    getline(cin, parent_count_temp);
+
+    int parent_count = stoi(ltrim(rtrim(parent_count_temp)));
+
+    vector<int> parent(parent_count);
+
+    for (int i = 0; i < parent_count; i++) {
+        string parent_item_temp;
+        getline(cin, parent_item_temp);
+
+        int parent_item = stoi(ltrim(rtrim(parent_item_temp)));
+
+        parent[i] = parent_item;
+    }
+
+    string files_size_count_temp;
+    getline(cin, files_size_count_temp);
+
+    int files_size_count = stoi(ltrim(rtrim(files_size_count_temp)));
+
+    vector<int> files_size(files_size_count);
+
+    for (int i = 0; i < files_size_count; i++) {
+        string files_size_item_temp;
+        getline(cin, files_size_item_temp);
+
+        int files_size_item = stoi(ltrim(rtrim(files_size_item_temp)));
+
+        files_size[i] = files_size_item;
+    }
+
+    int result = mostBalancedPartition(parent, files_size);
+
+    cout << result << "\n";
+
+    return 0;
+}
+
+string ltrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        s.begin(),
+        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
+    );
+
+    return s;
+}
+
+string rtrim(const string &str) {
+    string s(str);
+
+    s.erase(
+        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
+        s.end()
+    );
+
+    return s;
+}
