@@ -1,0 +1,13 @@
+void mirrorofabinarytree( node* root)
+{
+    if (root == NULL)
+        return;
+    else {
+        
+        mirrorofabinarytree (root->left);
+        mirrorofabinarytree (root->right);
+        
+        swap(root->left,root->right);
+       
+    }
+}
