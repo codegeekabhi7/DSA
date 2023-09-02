@@ -1,0 +1,124 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node* left;
+    node* right;
+    node(int d){
+        data = d;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+node* buildtree(){
+    int d;
+    cin>>d;
+    if(d == -1){
+        return nullptr;
+    }
+    node* root = new node(d);
+    root->left = buildtree();
+    root->right = buildtree();
+    
+    return root;
+}
+
+int heightintree(node* root){
+    
+    if(root == nullptr){
+        return 0;
+    }
+    
+    return max(heightintree(root->left),heightintree(root->right))+1;
+}
+
+
+ int diameter (node* root){
+    
+    //base case
+    if(root==NULL){
+        return 0;
+    }
+    
+    
+    //recursive case
+    
+    int op1 = diameter (root->left);//LST 
+    
+    int op2 = diameter (root->right);//RST
+    int op3 = heightintree(root->left) + heightintree(root->right);
+    
+    return max(op1, max(op2,op3));
+}
+
+
+
+
+class p {
+    
+    public:
+    
+    int he;
+    int d;
+    
+    p(int he,int d){
+        this->he = 0;
+        this-> d=0;
+}
+
+};
+
+
+p optidia(node* root){
+    p x;
+    
+    //base case
+    if (root == NULL){
+        return x;
+    }
+    
+    //recursive case
+    
+    p le =optidia(root->left);
+    p re =optidia(root->right);
+    
+    
+    x.h = max(le.h , re.h) + 1;
+    
+    int op1 = le.d;
+    int op2 = re.d;
+    int op3 = le.h +re.h;
+    
+     x.d =  max(op1, max(op2,op3));
+    
+    
+    return x;
+}
+
+
+int main(){
+    
+       node* root = buildtree();
+
+    // cout << "Preorder traversal before mirroring: ";
+    // preorder(root);
+    // cout << endl;
+
+    // cout << "Number of nodes in tree: " << nodecountintree(root) << endl;
+    // cout << "Sum of nodes in tree: " << sumofnodesintree(root) << endl;
+    // cout << "Height of tree: " << heightintree(root) << endl;
+
+    // mirrortree(root);
+
+    // cout << "Preorder traversal after mirroring: ";
+    // preorder(root);
+    // cout << endl;
+
+    // return 0;
+    return 0;
+    
+}
