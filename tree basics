@@ -1,0 +1,101 @@
+#include <iostream>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node* left;
+    node* right;
+    node(int d){
+        data = d;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+node* buildtree(){
+    int d;
+    cin>>d;
+    if(d == -1){
+        return nullptr;
+    }
+    node* root = new node(d);
+    root->left = buildtree();
+    root->right = buildtree();
+    
+    return root;
+}
+
+void preorder(node* root){
+    if(root == nullptr){
+        return;
+    }
+    cout<<root->data<<" ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
+int nodecountintree(node* root){
+    if(root == nullptr){
+        return 0;
+    }
+    return nodecountintree(root->left)+nodecountintree(root->right)+1;
+}
+
+int sumofnodesintree(node* root){
+    
+    if(root == nullptr){
+        return 0;
+    }
+    
+    return sumofnodesintree(root->left)+sumofnodesintree(root->right)+root->data;
+}
+
+int heightintree(node* root){
+    
+    if(root == nullptr){
+        return 0;
+    }
+    
+    return max(heightintree(root->left),heightintree(root->right))+1;
+}
+
+bool searchinatree(node* root, int key){
+    if(root == nullptr){
+        return false;
+    }
+    if(key == root->data || searchinatree(root->left, key) || searchinatree(root->right, key)){
+        return true;
+    }
+    return false;
+}
+
+void mirrortree(node* root){
+    if(root == nullptr){
+        return;
+    }
+    swap(root->left,root->right);
+    
+    mirrortree(root->left);
+    mirrortree(root->right);
+}
+
+int main() {
+    node* root = buildtree();
+
+    cout << "Preorder traversal before mirroring: ";
+    preorder(root);
+    cout << endl;
+
+    cout << "Number of nodes in tree: " << nodecountintree(root) << endl;
+    cout << "Sum of nodes in tree: " << sumofnodesintree(root) << endl;
+    cout << "Height of tree: " << heightintree(root) << endl;
+
+    mirrortree(root);
+
+    cout << "Preorder traversal after mirroring: ";
+    preorder(root);
+    cout << endl;
+
+    return 0;
+}
