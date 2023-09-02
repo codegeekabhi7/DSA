@@ -1,0 +1,98 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+class node{
+    public:
+    int data;
+    node* left;
+    node* right;
+    node(int d){
+        data = d;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+buildtreefrominandpre(int s, int e){
+    //base case 
+    if (s>e){
+        return NULL;
+    }
+    
+    //recursive case
+    
+    int d = pre[i];
+    i++;
+    
+    for(int j = 0 ; j <=e;j++) {
+        if (ino[j]==d){
+            k=j;
+            break;
+        }
+    }
+    node* root = new node(d);
+    
+    root->left = buildtreefrominandpre(s,k-1);
+    root->right = buildtreefrominandpre(k+1,e);
+    return root;
+    
+}
+
+void levelwise(node* root){
+    queue<node*> q;
+    q.push(root);
+    q.push(NULL);
+    while (!q.empty){
+        node *x = q.front();
+            q.pop();
+            if(x==NULL){
+                cout<<endl;
+                if(!q.empty()){
+                    q.push(NULL);
+                }
+            }
+        else{
+            cout<<x->data<<" ";
+            if (x->left!=NULL){
+                q.push(x->left);
+            }
+            if (x>right!= NULL){
+                q.push(x->right);
+                
+            }
+        }
+        
+    }
+    
+    
+    
+}
+
+
+
+
+
+int main(){
+    
+      int n = sizeof(pre)/sizeof(int);
+      node* root = buildtreefrominandpre(0,n-1);
+
+    // cout << "Preorder traversal before mirroring: ";
+    // preorder(root);
+    // cout << endl;
+
+    // cout << "Number of nodes in tree: " << nodecountintree(root) << endl;
+    // cout << "Sum of nodes in tree: " << sumofnodesintree(root) << endl;
+    // cout << "Height of tree: " << heightintree(root) << endl;
+
+    // mirrortree(root);
+
+    // cout << "Preorder traversal after mirroring: ";
+    // preorder(root);
+    // cout << endl;
+
+    // return 0;
+    return 0;
+    
+}
