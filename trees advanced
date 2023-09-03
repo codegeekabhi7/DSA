@@ -1,0 +1,148 @@
+#include <iostream>
+#include <queue>
+#include <climits>
+
+using namespace std;
+
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
+    node(int d) {
+        data = d;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+node* insertinbst(node* root, int data) {
+    if (root == NULL) {
+        root = new node(data);
+        return root;
+    } else if (data > root->data) {
+        root->right = insertinbst(root->right, data);
+        return root;
+    } else if (data <= root->data) {
+        root->left = insertinbst(root->left, data);
+        return root;
+    }
+    return root;
+}
+
+node* buildbst() {
+    node* root = NULL;
+    int data;
+    cin >> data;
+    while (data != -1) {
+        root = insertinbst(root, data);
+        cin >> data;
+    }
+    return root;
+}
+
+void levelwise(node* root) {
+    queue<node*> q;
+    q.push(root);
+    q.push(NULL);
+    while (!q.empty()) {
+        node* x = q.front();
+        q.pop();
+        if (x == NULL) {
+            cout << endl;
+            if (!q.empty()) {
+                q.push(NULL);
+            }
+        } else {
+            cout << x->data << " ";
+            if (x->left != NULL) {
+                q.push(x->left);
+            }
+            if (x->right != NULL) {
+                q.push(x->right);
+            }
+        }
+    }
+}
+
+bool checkbst(node* root, int mi = INT_MIN, int ma = INT_MAX) {
+    if (root == NULL) {
+        return true;
+    }
+    
+    if (root->data >= mi && root->data <= ma && checkbst(root->left, mi, root->data) && checkbst(root->right, root->data, ma)) {
+        return true;
+    }
+    
+    return false;
+}
+
+class ll {
+public:
+    node* h;
+    node* t;
+    
+    ll() {
+        h = NULL;
+        t = NULL;
+    }
+};
+
+ll bstintosll(node* root) {
+    ll x;
+    
+    if (root == NULL) {
+        return x;
+    }
+    
+    if (root->left == NULL && root->right == NULL) {
+        x.h = root;
+        x.t = root;
+        return x;
+    } else if (root->left != NULL && root->right == NULL) {
+        ll p = bstintosll(root->left);
+        p.t->right = root;
+        x.h = p.h;
+        x.t = root;
+        return x;
+    } else if (root->left == NULL && root->right != NULL) {
+        ll q = bstintosll(root->right);
+        root->right = q.h;
+        x.h = root;
+        x.t = q.t;
+        return x;
+    } else {
+        ll p = bstintosll(root->left);
+        ll q = bstintosll(root->right);
+        p.t->right = root;
+        root->right = q.h;
+        x.h = p.h;
+        x.t = q.t;
+        return x;
+    }
+}
+
+void printll(node* head) {
+    while (head != NULL) {
+        cout << head->data << " ";
+        head = head->right;
+    }
+    cout << endl;
+}
+
+int main() {
+    node* root = buildbst();
+    levelwise(root);
+    
+    if (checkbst(root)) {
+        cout << "yes bst" << endl;
+    } else {
+        cout << "no bst" << endl;
+    }
+    
+    ll ans = bstintosll(root);
+    printll(ans.h);
+    
+    return 0;
+}
+ 
