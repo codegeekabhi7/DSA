@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int val) : data(val), next(nullptr) {} // Constructor now accepts only the integer value.
+};
+
+Node* merge(Node* left, Node* right) {
+    if (!left) return right;
+    if (!right) return left;
+
+    Node* merged = nullptr;
+
+    if (left->data <= right->data) {
+        merged = left;
+        merged->next = merge(left->next, right);
+    } else {
+        merged = right;
+        merged->next = merge(left, right->next);
+    }
+
+    return merged;
+}
+
+Node* mergeSort(Node* head) {
+    if (!head || !head->next) {
+        return head;
+    }
+
+    Node* slow = head;
+    Node* fast = head->next;
+
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    Node* left = head;
+    Node* right = slow->next;
+    slow->next = nullptr;
+
+    left = mergeSort(left);
+    right = mergeSort(right);
+
+    return merge(left, right);
+}
+
+void printList(Node* head) {
+    Node* current = head;
+    while (current != nullptr) {
+        cout << current->data << " ";
+        current = current->next;
+    }
+    cout << endl;
+}
+
+int main() {
+    int N;
+    cin >> N;
+
+    Node* head = nullptr;
+    Node* tail = nullptr;
+
+    for (int i = 0; i < N; i++) {
+        int val;
+        cin >> val;
+        Node* newNode = new Node(val);
+        if (!head) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+    head = mergeSort(head);
+
+    printList(head);
+
+    return 0;
+}
