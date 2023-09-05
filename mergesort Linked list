@@ -1,4 +1,4 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
 class Node {
@@ -6,7 +6,10 @@ public:
     int data;
     Node* next;
 
-    Node(int val) : data(val), next(nullptr) {} // Constructor now accepts only the integer value.
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
 };
 
 Node* merge(Node* left, Node* right) {
@@ -49,9 +52,9 @@ Node* mergeSort(Node* head) {
     return merge(left, right);
 }
 
-void printList(Node* head) {
+void printlist(Node* head) {
     Node* current = head;
-    while (current != nullptr) {
+    while (current != NULL) {
         cout << current->data << " ";
         current = current->next;
     }
@@ -69,6 +72,7 @@ int main() {
         int val;
         cin >> val;
         Node* newNode = new Node(val);
+
         if (!head) {
             head = newNode;
             tail = newNode;
@@ -79,8 +83,7 @@ int main() {
     }
 
     head = mergeSort(head);
-
-    printList(head);
+    printlist(head);
 
     return 0;
 }
