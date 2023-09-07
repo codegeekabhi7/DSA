@@ -1,0 +1,79 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+class Solution {
+public:
+    ListNode* rev(ListNode* head) {
+        ListNode* curr = head;
+        ListNode* prev = NULL;
+        ListNode* next = NULL;
+        
+        while (curr != NULL) {
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+        
+        return prev;
+    }
+
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        if (head == NULL || head->next == NULL) {
+            return head;
+        }
+        if (left == right) {
+            return head;
+        }
+
+        ListNode* curr = head;
+        ListNode* t = NULL;
+        ListNode* prev = NULL;
+        ListNode* s = NULL;
+        ListNode* v = NULL;
+        bool f = false;
+
+        if (left == 1) {
+            f = true;
+            t = curr;
+        }
+
+        int s1 = 1;
+        while (curr != NULL) {
+            if (s1 == left && !f) {
+                v = prev;
+                t = curr;
+            }
+            if (s1 == right) {
+                s = curr->next;
+                curr->next = NULL;
+                break;
+            }
+            prev = curr;
+            curr = curr->next;
+            s1++;
+        }
+
+        if (!f) {
+            v->next = NULL;
+        }
+
+        ListNode* ans = rev(t);
+        t->next = s;
+        
+        if (!f) {
+            v->next = ans;
+            return head;
+        } else {
+            return ans;
+        }
+    }
+};
