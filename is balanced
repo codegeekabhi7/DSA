@@ -1,0 +1,124 @@
+#include <iostream>
+using namespace std;
+
+
+class c{
+    public:
+    
+    int h;
+    bool bal;
+    
+    c(){
+        h=0;
+        bal = true;
+    }
+};
+
+
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
+    node(int d) {
+        data = d;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+
+
+int heightintree(node*root){
+	if(root==NULL){
+		return 0;
+	}
+
+
+	return max(heightintree(root->left),heightintree(root->right))+1;
+}
+
+void levelwise(node*root){
+	queue<node*> q;
+	q.push(root);
+	q.push(NULL);
+	while(!q.empty()){
+		node*x=q.front();
+		q.pop();
+		if(x==NULL){
+			cout<<endl;
+			if(!q.empty()){
+				q.push(NULL);
+			}
+
+		}
+		else{
+			cout<<x->data<<" ";
+			if(x->left!=NULL){
+				q.push(x->left);
+			}
+			if(x->right!=NULL){
+				q.push(x->right);
+			}
+		}
+	}
+
+}
+node* buildbst() {
+    node* root = NULL;
+    int data;
+    cin >> data;
+    while (data != -1) {
+        root = insertinbst(root, data);
+        cin >> data;
+    }
+    return root;
+}
+
+
+
+c isbalanced(node* root){
+    c x;
+    
+    if(root==NULL){
+        // x.b= true;
+        // x.h =0;
+        return x
+    }
+ 
+   c l =  isbalanced(root->left);
+   
+   c r = isbalanced(root->right);
+   
+   x.h = max(l.h , r.h)+1;
+   
+   if(l.b = true and r.b == true and abs(l.h - r.h)<=1){
+       x.b = true;
+       
+   } else{
+       x.b = false;
+   }
+   
+   return x;
+   
+   
+}
+
+int main()
+{
+    
+    node*root=buildbst();
+    
+    c ans = isbalanced(root);
+    if(ans.b == true){
+        cout<<"is balanced"<<" ";
+        
+    }else 
+    {
+        cout<<" is not balanced" << " ";
+        
+    }
+    
+    
+    return 0;
+}
