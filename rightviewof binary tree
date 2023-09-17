@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+
+
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
+    node(int d) {
+        data = d;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+node* insertinbst(node* root, int data) {
+    if (root == NULL) {
+        root = new node(data);
+        return root;
+    } else if (data > root->data) {
+        root->right = insertinbst(root->right, data);
+        return root;
+    } else if (data <= root->data) {
+        root->left = insertinbst(root->left, data);
+        return root;
+    }
+    return root;
+}
+
+
+node* buildbst() {
+    node* root = NULL;
+    int data;
+    cin >> data;
+    while (data != -1) {
+        root = insertinbst(root, data);
+        cin >> data;
+    }
+    return root;
+}
+
+rightview(node*root,int &mlttn , int cl){
+
+    if(root==NULL){
+        return ;
+    }
+    if (mlttn < cl ){
+        cout<<root->data;
+        mlttn++;
+    }
+
+
+    rightview(root->right,mlttn,cl+1);
+    rightview(root-left,mlttn,cl+1);
+}
+
+twoancestor(node*root, int key1 ,int key2){
+
+    vector<int> k1;
+    vector<int> k2;
+
+    node* temp = root;
+   if(k1<root->data){
+      
+   }
+ 
+}
+
+int main(){
+
+
+    return 0;
+}

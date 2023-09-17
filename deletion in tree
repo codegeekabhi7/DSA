@@ -1,0 +1,116 @@
+#include <iostream>
+using namespace std;
+
+
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
+    node(int d) {
+        data = d;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+node* insertinbst(node* root, int data) {
+    if (root == NULL) {
+        root = new node(data);
+        return root;
+    } else if (data > root->data) {
+        root->right = insertinbst(root->right, data);
+        return root;
+    } else if (data <= root->data) {
+        root->left = insertinbst(root->left, data);
+        return root;
+    }
+    return root;
+}
+
+
+node* buildbst() {
+    node* root = NULL;
+    int data;
+    cin >> data;
+    while (data != -1) {
+        root = insertinbst(root, data);
+        cin >> data;
+    }
+    return root;
+}
+
+
+deletioninbst(node*root , int key){
+if(key==root->data){
+   // Case 1 NO LST no rst
+   if(root->left == NULL and root->right == NULL){
+    delete root;
+    root=NULL:
+    return root;
+   }
+
+   //case 2 lst no rst
+else if(root->left != NULL and root->right == NULL){
+    node*temp = root->left;
+    delete root;
+    root = temp;
+
+    return root;
+
+}
+
+
+   //case 3 no lst but rst 
+else if(root->left == NULL and root->right != NULL){
+  node*temp = root->right;
+    delete root;
+    root = temp;
+
+    return root;
+
+}
+
+
+   // case 4 lst and rst 
+else {
+
+    node*temp = root->left;
+    while (temp->right!=NULL){
+        temp=temp->right;
+
+    }
+
+    swap(root->data,temp-data);
+    root->left =  deletioninbst(root->left,key);
+    return root;
+}
+
+
+
+
+
+
+}else if(key < root->data)
+root->left = deletioninbst(root->left, key);
+
+return root;
+
+}
+
+else{
+root->right = deletioninbst(root->right , key);
+
+return root;
+
+}
+
+
+int main(){
+
+node*root = buildbst();
+int key;
+cin>>key;
+deletioninbst(root,key);
+    return 0;
+
+}
