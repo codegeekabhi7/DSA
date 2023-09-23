@@ -1,0 +1,142 @@
+// Key value pair storage
+//has complexities in the form of O(1) for insertion , deletion and searching 
+// Hash function = (Σ (i=0 to i<s.lenght s[i]) * 29^i) %ts
+
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class node {
+public:
+    string fname;
+    int fprice;
+    node* next;
+    
+    node(string f, int p) {
+        fname = f;
+        fprice = p;
+        next = nullptr;
+    }
+};
+
+class hashmap {
+    node** arr;
+    int cs;
+    int ts;
+public:
+    hashmap(int size = 7) {
+        arr = new node*[2 * size];
+        cs = 0;
+        ts = 2 * size;
+        for (int i = 0; i < ts; i++) {
+            arr[i] = nullptr;
+        }
+    }
+    
+    int hashfunction(string s) {
+        int mult = 1;
+        int ans = 0;
+        
+        for (int i = 0; i < s.length(); i++) {
+            ans = (ans % ts + (s[i] % ts) * (mult % ts)) % ts;
+            mult = (mult % ts * 29 % ts) % ts;
+        }
+        return ans;
+    }
+    
+    void rehashing() {
+        node** oldarr = arr;
+        int oldts = ts;
+        arr = new node*[2 * ts];
+        ts = 2 * ts;
+        cs = 0;
+        
+        for (int i = 0; i < ts; i++) {
+            arr[i] = nullptr;
+        }
+        
+        for (int i = 0; i < oldts; i++) {
+            node* temp = oldarr[i];
+            while (temp != nullptr) {
+                insert(temp->fname, temp->fprice);
+                temp = temp->next;
+            }
+        }
+    }
+
+    void insert(string f, int p) {
+        int index = hashfunction(f);
+        node* n = new node(f, p);
+        n->next = arr[index];
+        arr[index] = n;
+        cs++;
+
+        if (cs * 1.0 / ts > 0.4) {
+            rehashing();
+        }
+    }
+
+    void printhashmap() {
+        for (int i = 0; i < ts; i++) {
+            cout << "Bucket " << i << ": ";
+            node* temp = arr[i];
+            while (temp != nullptr) {
+                cout << "(" << temp->fname << ", " << temp->fprice << ") ";
+                temp = temp->next;
+            }
+            cout << endl;
+        }
+    }
+   void search(string f){
+    int index= hashfunction(f);
+    node*temp = arr[index];
+    
+    while(temp !=NULL){
+         if(temp->fname == f){
+        return true;
+    }
+    temp = temp->next;
+    }
+   return false;
+}
+void delete(string f) {
+        int index = hashfunction(f);
+        node* current = arr[index];
+        node* prev = nullptr;
+
+        while (current != nullptr) {
+            if (current->fname == f) {
+                if (prev != nullptr) {
+                    prev->next = current->next;
+                } else {
+                    
+                    arr[index] = current->next;
+                }
+                delete current;
+                cs--;
+                return; 
+            }
+
+            prev = current;
+            current = current->next;
+        }
+    }
+};
+
+
+int main() {
+    hashmap hm;
+
+    hm.insert("apple", 5);
+    hm.insert("banana", 3);
+    hm.insert("orange", 2);
+    hm.insert("grape", 4);
+
+    cout << "Hashmap Contents:" << endl;
+    hm.printhashmap();
+
+    return 0;
+}
+
