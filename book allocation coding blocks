@@ -1,0 +1,52 @@
+#include <iostream>
+#include <algorithm> 
+using namespace std;
+
+bool ispossible(int books[100000], int ts, int tb, int mid) {
+    int students = 1;
+    int pages_read = 0;
+
+    for (int i = 0; i < tb; i++) {
+        if (pages_read + books[i] > mid) {
+            students++;
+            pages_read = books[i];
+
+            if (students > ts) {
+                return false;
+            }
+        } else {
+            pages_read += books[i];
+        }
+    }
+
+    return true;
+}
+
+int main() {
+    int tb, ts;
+    cin >> tb >> ts;
+    int books[100000];
+    int count = 0;
+
+    for (int i = 0; i < tb; i++) {
+        cin >> books[i];
+        count += books[i];
+    }
+
+    int s = *max_element(books, books + tb); 
+    int e = count; 
+    int ans = -1; 
+    while (s <= e) {
+        int mid = (s + e) / 2;
+        if (ispossible(books, ts, tb, mid)) {
+            ans = mid;
+            e = mid - 1;
+        } else {
+            s = mid + 1;
+        }
+    }
+
+    cout << ans << endl;
+
+    return 0;
+}
