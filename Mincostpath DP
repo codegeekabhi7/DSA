@@ -1,0 +1,24 @@
+#include<iostream>
+#include <climits>
+
+uisng namespace std;
+
+
+
+int main()
+{
+  int cost[4][4] = {
+      {2,3,9,3},
+      {1,1,6,4},
+      {3,2,4,1},
+      {6,3,1,2}
+  };
+  
+  int i, j;
+  cin >> i >> j;
+  
+  int result = mincostpath(cost, i, j);
+  cout << "Minimum cost to reach (" << i << ", " << j << ") is " << result << endl;
+
+  return 0;
+}
