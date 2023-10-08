@@ -1,24 +1,47 @@
 #include<iostream>
 #include <climits>
 
-uisng namespace std;
+using namespace std;
 
+int mincostpath(int cost[4][4], int i, int j) {
+    int dp[4][4]; // Create a 2D array to store intermediate results
 
+    // Initialize the first element of the dp array
+    dp[0][0] = cost[0][0];
 
-int main()
-{
-  int cost[4][4] = {
-      {2,3,9,3},
-      {1,1,6,4},
-      {3,2,4,1},
-      {6,3,1,2}
-  };
-  
-  int i, j;
-  cin >> i >> j;
-  
-  int result = mincostpath(cost, i, j);
-  cout << "Minimum cost to reach (" << i << ", " << j << ") is " << result << endl;
+    // Initialize the first row of dp array
+    for (int col = 1; col <= j; col++) {
+        dp[0][col] = dp[0][col - 1] + cost[0][col];
+    }
 
-  return 0;
+    // Initialize the first column of dp array
+    for (int row = 1; row <= i; row++) {
+        dp[row][0] = dp[row - 1][0] + cost[row][0];
+    }
+
+    // Fill the dp array using bottom-up approach
+    for (int row = 1; row <= i; row++) {
+        for (int col = 1; col <= j; col++) {
+            dp[row][col] = min(dp[row - 1][col], dp[row][col - 1]) + cost[row][col];
+        }
+    }
+
+    return dp[i][j]; // The minimum cost to reach (i, j)
+}
+
+int main() {
+    int cost[4][4] = {
+        {2, 3, 9, 3},
+        {1, 1, 6, 4},
+        {3, 2, 4, 1},
+        {6, 3, 1, 2}
+    };
+
+    int i, j;
+    cin >> i >> j;
+
+    int result = mincostpath(cost, i, j);
+    cout << "Minimum cost to reach (" << i << ", " << j << ") is " << result << endl;
+
+    return 0;
 }
