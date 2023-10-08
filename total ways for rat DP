@@ -1,0 +1,36 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+
+
+int totalways( int i, int j){
+    //base case
+    if(i==0 && j==0){
+        return 1;
+    }
+     
+    //recursive case
+    int ans = 0;
+    for(int k = 0;k<i;k++){
+        ans += totalways(k,j);
+    }
+    
+    for(int l = 0;l<j;l++){
+        ans += totalways(i,j);
+    }
+    
+    return ans;
+    
+}
+
+
+int main() {
+    
+
+    int i, j;
+    cin >> i >> j;
+
+    int result = minnomofways( i, j);
+    cout << "Minimum cost to reach (" << i << ", " << j << ") is " << result << endl;
+
+    return 0;
+}
