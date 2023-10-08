@@ -45,3 +45,47 @@ int main() {
 
     return 0;
 }
+
+
+// BOTTOM UP
+
+#include <iostream>
+#include <climits>
+using namespace std;
+
+int mincostpath(int cost[4][4], int i, int j) {
+    int arr[100][100];
+
+    for (int k = 0; k <= i; k++) {
+        for (int l = 0; l <= j; l++) {
+            if (k == 0 && l == 0) {
+                arr[k][l] = cost[k][l];
+            } else if (k == 0) {
+                arr[k][l] = arr[k][l - 1] + cost[k][l];
+            } else if (l == 0) { 
+                arr[k][l] = arr[k - 1][l] + cost[k][l];
+            } else {
+                arr[k][l] = min(arr[k - 1][l], arr[k][l - 1]) + cost[k][l];
+            }
+        }
+    }
+    return arr[i][j]; 
+}
+
+int main() {
+    int cost[4][4] = {
+        {2, 3, 9, 3},
+        {1, 1, 6, 4},
+        {3, 2, 4, 1},
+        {6, 3, 1, 2}
+    };
+
+    int i, j;
+    cin >> i >> j;
+
+    int result = mincostpath(cost, i, j);
+    cout << "Minimum cost to reach (" << i << ", " << j << ") is " << result << endl;
+
+    return 0;
+}
+
