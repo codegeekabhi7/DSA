@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+int nStaircase(int n, int k) {
+    int arr[n + 1];
+    arr[0] = 1; 
+
+    for (int i = 1; i <= n; i++) {
+        arr[i] = 0;
+         
+    }
+    return arr[n]= ans;
+}
+
+int main() {
+    int n, k;
+   
+    cin >>n>>k;
+  
+    int ways = nStaircase(n, k);
+    cout << ways<<endl;
+    
+
+    return 0;
+}
